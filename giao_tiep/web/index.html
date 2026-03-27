@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>🌐 Hệ Thống Dịch</title>
+  <link rel="stylesheet" href="/static/panel.css">
+</head>
+<body>
+<header>
+  <span style="font-size:1.4rem">🌐</span>
+  <h1>Hệ Thống Dịch</h1>
+  <span class="hbadge">v3.1.1</span>
+  <nav class="hnav">
+    <a href="/api/docs">📚 API Docs</a>
+    <span id="conn" style="padding:6px 14px;font-size:.78rem;color:var(--mu)">● Kết nối...</span>
+  </nav>
+</header>
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-tab="1">🔤 Dịch File</div>
+    <div class="tab" data-tab="2">🔍 Quét Plugin</div>
+    <div class="tab" data-tab="3">🔌 Quản Lý Plugin</div>
+    <div class="tab" data-tab="4">🔑 API Keys</div>
+    <div class="tab" data-tab="5">📋 Jobs</div>
+    <div class="tab" data-tab="6">📊 Thống Kê</div>
+  </div>
+
+  <div class="tp active" id="tp-1">
+    <div class="grid2">
+      <div class="card">
+        <h3>📤 Upload & Dịch</h3>
+        <div class="drop" id="drop-zone" onclick="document.getElementById('drop-zone-fi').click()">
+          <input type="file" id="drop-zone-fi">
+          <div class="ic">📁</div>
+          <p>Kéo thả file hoặc click để chọn</p>
+          <small>Hỗ trợ: .yml .yaml .json .lang .txt .po .zip và nhiều loại khác</small>
+        </div>
+        <div class="row" style="margin-top:12px">
+          <div style="flex:1">
+            <div style="font-size:.74rem;color:var(--mu);margin-bottom:4px">Ngôn ngữ nguồn</div>
+            <select id="lang-from">
+              <option value="auto">🔍 Tự động</option>
+              <option value="en">🇬🇧 Tiếng Anh</option>
+              <option value="ja">🇯🇵 Tiếng Nhật</option>
+              <option value="ko">🇰🇷 Tiếng Hàn</option>
+              <option value="zh-CN">🇨🇳 Trung (Giản)</option>
+              <option value="zh-TW">🇹🇼 Trung (Phồn)</option>
+              <option value="fr">🇫🇷 Pháp</option>
+              <option value="de">🇩🇪 Đức</option>
+              <option value="es">🇪🇸 Tây Ban Nha</option>
+              <option value="ru">🇷🇺 Nga</option>
+            </select>
+          </div>
+          <div style="padding-top:18px;color:var(--mu)">→</div>
+          <div style="flex:1">
+            <div style="font-size:.74rem;color:var(--mu);margin-bottom:4px">Ngôn ngữ đích</div>
+            <select id="lang-to">
+              <option value="vi">🇻🇳 Tiếng Việt</option>
+              <option value="en">🇬🇧 Tiếng Anh</option>
+              <option value="ja">🇯🇵 Tiếng Nhật</option>
+              <option value="ko">🇰🇷 Tiếng Hàn</option>
+              <option value="zh-CN">🇨🇳 Trung (Giản)</option>
+              <option value="fr">🇫🇷 Pháp</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin:10px 0 10px">
+          <div style="font-size:.74rem;color:var(--mu);margin-bottom:4px">Lọc Plugin (tuỳ chọn)</div>
+          <select id="plugin-filter"><option value="">Dịch tất cả file</option></select>
+        </div>
+        <button class="btn btn-p" id="btn-upload" onclick="uploadVaDich()" disabled style="width:100%">🚀 Upload & Dịch</button>
+        <div class="progress" id="prog-t1" style="display:none"><div class="pfill" id="fill-t1" style="width:0%"></div></div>
+        <div class="msg" id="msg-t1"></div>
+        <div id="dl-area" style="display:none;margin-top:10px"><button class="btn btn-g" onclick="taiKetQua()" style="width:100%">⬇️ Tải Kết Quả</button></div>
+      </div>
+      <div class="card">
+        <h3>📝 Log Job</h3>
+        <div class="logbox" id="job-log">Chưa có job nào...</div>
+        <div style="margin-top:14px">
+          <h3>📊 Stats Nhanh</h3>
+          <div class="grid3" style="margin-top:10px">
+            <div class="stat"><div class="v" id="st-req">—</div><div class="l">Requests</div></div>
+            <div class="stat"><div class="v" id="st-ok">—</div><div class="l">Thành công</div></div>
+            <div class="stat"><div class="v" id="st-jobs">—</div><div class="l">Tổng Jobs</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tp" id="tp-2">
+    <div class="grid2">
+      <div class="card">
+        <h3>🔍 Quét Folder Plugin</h3>
+        <div class="drop" id="drop-zone-2" onclick="document.getElementById('drop-zone-2-fi').click()">
+          <input type="file" id="drop-zone-2-fi">
+          <div class="ic">🗜️</div>
+          <p>Upload file .zip chứa plugin server</p>
+          <small>Hệ thống sẽ quét các folder plugin và gợi ý nên đào cái nào</small>
+        </div>
+        <button class="btn btn-p" id="btn-scan" onclick="scanPlugin()" disabled style="width:100%;margin-top:12px">🔍 Quét Plugin</button>
+        <div class="msg" id="msg-t2"></div>
+      </div>
+      <div class="card">
+        <h3>💡 Hướng dẫn</h3>
+        <p style="color:var(--mu);font-size:.83rem;line-height:1.7">
+          <b style="color:var(--tx)">Luồng sử dụng:</b><br>
+          1️⃣ Upload file zip chứa folder <code>/plugins</code><br>
+          2️⃣ Hệ thống quét và gợi ý plugin cần dịch<br>
+          3️⃣ Tích chọn plugin muốn dịch → Lưu<br>
+          4️⃣ Quay lại tab <b>Dịch File</b> → dịch với filter plugin<br><br>
+          <span style="color:var(--g)">● NÊN ĐÀO</span> — Plugin có file dịch được<br>
+          <span style="color:var(--y)">● CẨN THẬN</span> — Cần xem lại trước khi dịch<br>
+          <span style="color:var(--r)">● BỎ QUA</span> — Library, không cần dịch
+        </p>
+      </div>
+    </div>
+    <div id="scan-result-area" style="display:none;margin-top:16px">
+      <div class="card">
+        <h3>Kết quả quét <button class="btn btn-g btn-sm" onclick="luuPluginChon()" style="float:right;margin-top:-3px">💾 Lưu Plugin Đã Chọn</button></h3>
+        <div class="scroll" style="margin-top:12px" id="scan-table"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tp" id="tp-3">
+    <div class="grid2">
+      <div class="card">
+        <h3>🔌 Plugin Cần Đào</h3>
+        <div id="plugin-list-ui" style="margin-bottom:14px"></div>
+        <div class="row">
+          <input type="text" id="new-plugin-inp" placeholder="Tên plugin (VD: MythicMobs)" style="flex:1">
+          <button class="btn btn-p btn-sm" onclick="themPluginThuCong()">+ Thêm</button>
+        </div>
+        <p style="color:var(--mu);font-size:.75rem;margin-top:8px">Click vào plugin để xóa</p>
+      </div>
+      <div class="card">
+        <h3>📖 Plugin Mặc Định Biết</h3>
+        <div style="font-size:.8rem;color:var(--mu);line-height:2">
+          <span class="pill">DeluxeMenus</span><span class="pill">MythicHUD</span><span class="pill">MythicMobs</span><span class="pill">ItemsAdder</span><span class="pill">Oraxen</span><span class="pill">TAB</span><span class="pill">CMI</span><span class="pill">ShopGUIPlus</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tp" id="tp-4">
+    <div class="grid2">
+      <div class="card">
+        <h3>🔑 API Keys Hiện Tại</h3>
+        <div id="key-list-ui" style="margin-bottom:14px">Đang tải...</div>
+        <div class="row"><input type="password" id="new-key-inp" placeholder="AIzaSy... (Gemini API Key)" style="flex:1"><button class="btn btn-p btn-sm" onclick="themKey()">+ Thêm</button></div>
+        <div class="msg" id="msg-keys"></div>
+      </div>
+      <div class="card">
+        <h3>🧠 Model</h3>
+        <div class="stat"><div class="v" id="st-model">—</div><div class="l">Model hiện tại</div></div>
+        <div style="margin-top:12px;color:var(--mu);font-size:.83rem">Panel này giờ tách HTML / CSS / JS riêng, nên sửa giao diện sẽ đỡ khổ hơn nhiều.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tp" id="tp-5">
+    <div class="card">
+      <h3>📋 Danh sách Jobs</h3>
+      <div class="scroll"><table class="tbl"><thead><tr><th>Mã Job</th><th>Tên file</th><th>Trạng thái</th><th>Số file</th><th>Tải</th></tr></thead><tbody id="jobs-tbody"></tbody></table></div>
+    </div>
+  </div>
+
+  <div class="tp" id="tp-6">
+    <div class="grid3">
+      <div class="stat"><div class="v" id="st-fail">—</div><div class="l">Thất bại</div></div>
+      <div class="stat"><div class="v" id="st-keys">—</div><div class="l">API Keys</div></div>
+      <div class="stat"><div class="v" id="st-done">—</div><div class="l">Jobs Done</div></div>
+    </div>
+  </div>
+</div>
+<script src="/static/panel.js"></script>
+</body>
+</html>

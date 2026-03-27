@@ -1,0 +1,4 @@
+Data da nhap tu bo zip thuc te truoc do.
+- menu_title/display_name/lore va nhom message command duoc uu tien.
+- GG chi dung diff_hoc nhu bo nho goi y, khong hoc nguoc lai.
+- Nhom command chi dich [message]/[broadcast], con lai skip.

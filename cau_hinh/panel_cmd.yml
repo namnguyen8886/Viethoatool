@@ -1,0 +1,26 @@
+panel:
+  tieu_de: HE THONG DICH FILE
+  phien_ban: v3.1.0
+  dong_phu: Gemini AI · Plugin-Aware · Multi-Format
+  bieu_tuong: 🌐
+  rong: 54
+  mau_banner: magenta
+  mau_nhan: cyan
+  mau_sub: dim
+  menu_chinh_tieu_de: MENU CHÍNH
+  trang_thai:
+    co_key_suffix: key
+    khong_co_key: ✗ chưa có key
+    plugin_suffix: plugin
+    tam_biet: Tạm biệt! 👋
+  menu:
+    '1': 🔤  Dịch file / thư mục / zip
+    '2': 🔍  Quét plugin folder (scan ngoài)
+    '3': 🔌  Quản lý plugin cần đào
+    '4': 🔑  Quản lý API Keys
+    '5': 📊  Thống kê & Log
+    '6': 📋  Quét file (xem trước)
+    '7': 🧩  Dữ liệu GG shield
+    '8': 🌐  Khởi động Web Panel
+    '9': ⚙️   Cài đặt nhanh (.env)
+    '0': 🚪  Thoát

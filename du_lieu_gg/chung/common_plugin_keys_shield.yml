@@ -1,0 +1,117 @@
+phien_ban: 1
+nguon: tong_hop_tu_plugin_pho_bien
+dich_mac_dinh:
+- display_name
+- display-name
+- name
+- menu_title
+- title
+- subtitle
+- description
+- desc
+- message
+- messages
+- text
+- content
+- status
+- available
+- unavailable
+- lore
+- item_name
+- gui_name
+- header
+- footer
+- prefix
+- suffix
+- lines
+cam_mac_dinh:
+- permission
+- permissions
+- material
+- slot
+- slots
+- priority
+- amount
+- size
+- type
+- cooldown
+- command
+- commands
+- open_command
+- open_commands
+- click_commands
+- left_click_commands
+- right_click_commands
+- shift_left_click_commands
+- shift_right_click_commands
+- console_commands
+- player_commands
+- requirements
+- requirement
+- view_requirement
+- input
+- output
+- nbt
+- damage
+- enchantments
+- options
+- gui
+- item
+- items
+- actions
+- conditions
+- condition
+- events
+- deny_commands
+list_dich_theo_cha:
+- lore
+- description
+- desc
+- messages
+- message
+- text
+- content
+- lines
+list_cam_theo_cha:
+- click_commands
+- left_click_commands
+- right_click_commands
+- shift_left_click_commands
+- shift_right_click_commands
+- commands
+- console_commands
+- player_commands
+- requirements
+- view_requirement
+- conditions
+- actions
+- events
+- deny_commands
+placeholder_patterns:
+- '%[^%]+%'
+- \{[^{}]+\}
+- <[^<>]+>
+mau_hex_patterns:
+- '&#[0-9a-fA-F]{6}'
+- <#[0-9a-fA-F]{6}>
+- \{#[0-9a-fA-F]{6}\}
+- '#[0-9a-fA-F]{6}'
+mau_thuong_patterns:
+- '&[0-9a-fA-F]'
+- §[0-9a-fA-F]
+uu_tien_xu_ly:
+- key_mac_dinh
+- context_cha_con
+- data_ngoai_trong_thu_muc_tool
+- khong_chac_thi_giu_nguyen
+khuyen_nghi:
+- Chi dich segment can dich, khong quang ca block YAML len GG.
+- Lore nen tach tung item thanh segment rieng.
+- Command list va requirement list phai cam dich.
+- Neu key la hoac plugin la khong pho bien, them file data vao thu muc du_lieu_gg/plugin/<ten_plugin>/.
+- Cho phep GG dich key DeluxeMenu pho bien truoc de khach khong phai cho Gemini lay
+  data.
+- click/left/right/deny_commands chi dich neu la [message] hoac [broadcast].
+dinh_dang_patterns:
+- '&[k-orK-OR]'
+- §[k-orK-OR]
